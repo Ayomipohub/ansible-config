@@ -1,12 +1,16 @@
 [nfs]
 172.31.27.52 ansible_ssh_user=ec2-user 
+ansible_ssh_private_key_file:ayo-key.pem
 
 [webservers]
 172.31.18.90 ansible_ssh_user=ec2-user
 172.31.30.4 ansible_ssh_user=ec2-user
+ansible_ssh_private_key_file:ayo-key.pem
 
 [db]
 172.31.28.134 ansible_ssh_user=ec2-user 
+ansible_ssh_private_key_file:ayo-key.pem
 
 [lb]
 172.31.11.93 ansible_ssh_user=ubuntu
+ansible_ssh_private_key_file:ayo-key.pem
