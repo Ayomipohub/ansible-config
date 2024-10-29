@@ -13,7 +13,7 @@
   import_playbook: ../static-assignments/webservers.yml
 
 
-
+#- import_playbook: ../static-assignments/common-del.yml
 
 
 #- name: uat-webservers assignment
