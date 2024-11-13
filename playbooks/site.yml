@@ -1,28 +1,11 @@
 ---
-- name: Import common file
-  import_playbook: ../static-assignments/loadbalancers.yml
-  tags:
-    - always
-
-- name: Include env-vars file
-  import_playbook: ../dynamic-assignments/loadbalancers.yml
-  tags:
-    - always
-
-- name: Import database file
-  import_playbook: ../static-assignments/databases.yml  # Ensure correct file path for databases
-
-- name: Import webservers file
-  import_playbook: ../static-assignments/webservers.yml  # Ensure correct file path for webservers
-
 - name: Loadbalancers assignment
   hosts: lb
-  import_playbook: ../static-assignments/loadbalancers.yml
   when: load_balancer_is_required
+  tasks:
+    - import_playbook: ../static-assignments/loadbalancers.yml
 
-
-
-
+    
 
 
 #- import_playbook: ../static-assignments/common-del.yml
