@@ -5,7 +5,7 @@
     - include: ../dynamic-assignments/env-vars.yml
       tags:
         - always
-- import_playbook: ../static-assignments/nginx-lb.yml
+- import_playbook: ../static-assignments/loadbalancers.yml
   vars:
     load_balancer_is_required: true  # or whatever condition needs to be checked
   when: load_balancer_is_required
