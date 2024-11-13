@@ -1,9 +1,10 @@
 ---
 - name: Loadbalancers assignment
   hosts: lb
-  when: load_balancer_is_required
   tasks:
-    - import_playbook: ../static-assignments/loadbalancers.yml
+    - name: Include Loadbalancer playbook if required
+      import_playbook: ../static-assignments/loadbalancers.yml
+      when: load_balancer_is_required
 
     
 
