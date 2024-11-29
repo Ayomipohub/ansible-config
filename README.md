@@ -1,7 +1,3 @@
-# ansible-config
-
-artifact
-
 
 Debian/Ubuntu
 On Debian and Debian-based distributions like Ubuntu you can install Jenkins through apt.
