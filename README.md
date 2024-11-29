@@ -2,17 +2,6 @@
 
 artifact
 
-success
-
-refractor
-
-
-trigger
-
-let get back to work
-
-Dynamic assignment
-
 
 Debian/Ubuntu
 On Debian and Debian-based distributions like Ubuntu you can install Jenkins through apt.
