@@ -1,0 +1,19 @@
+---
+- name: Install and Configure Nginx
+  hosts: nginx
+  become: true
+
+  tasks:
+    # Task 1: Install Nginx
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    # Task 2: Start and enable Nginx
+    - name: Ensure Nginx is started and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: true

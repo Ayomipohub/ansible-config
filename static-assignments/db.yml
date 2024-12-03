@@ -1,5 +1,31 @@
 ---
-  - hosts: db
-    roles:
-      - mysql
-    become: true
+---
+- name: Install and Configure MySQL
+  hosts: db
+  become: true
+
+  vars:
+    mysql_root_password: "your_root_password"
+    mysql_database: "app_database"
+    mysql_user: "app_user"
+    mysql_user_password: "secure_password"
+
+  tasks:
+    # Task 1: Install MySQL server
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    # Task 2: Start and enable MySQL service
+    - name: Ensure MySQL service is running
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+ # - hosts: db
+  #  roles:
+   #   - mysql
+    # become: true
