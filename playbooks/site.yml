@@ -1,17 +1,18 @@
 ---
-- name: Database assignment
+- name: Database Playbook
   hosts: db
   become: true
   tasks:
     - name: Include database playbook
-      ansible.builtin.import_playbook: ../static-assignments/db.yml
+      ansible.builtin.import_tasks: ../static-assignments/database.yml
 
-- name: Nginx assignment
+- name: NGINX Playbook
   hosts: nginx
   become: true
   tasks:
     - name: Include nginx playbook
-      ansible.builtin.import_playbook: ../static-assignments/nginx.yml
+      ansible.builtin.import_tasks: ../static-assignments/nginx.yml
+
 
 #- hosts: all
 #- name: Include dynamic variables
