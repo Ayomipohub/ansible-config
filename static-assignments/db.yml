@@ -1,5 +1,4 @@
 ---
----
 - name: Install and Configure MySQL
   hosts: db
   become: true
