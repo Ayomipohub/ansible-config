@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: Include database playbook
-      ansible.builtin.import_tasks: ../static-assignments/database.yml
+      ansible.builtin.import_tasks: ../static-assignments/db.yml
 
 - name: NGINX Playbook
   hosts: nginx
