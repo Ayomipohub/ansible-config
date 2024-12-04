@@ -42,3 +42,48 @@ sudo yum upgrade
 sudo yum install fontconfig java-17-openjdk
 sudo yum install jenkins
 sudo systemctl daemon-reload
+
+
+### jenkinsfile for quick task
+=================================
+   pipeline {
+    agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          sh 'echo "Building Stage"'
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        script {
+          sh 'echo "Testing Stage"'
+        }
+      }
+    }
+     stage('Package') {
+            steps {
+                echo 'Packaging the application...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+            }
+        }
+
+        stage('Clean Up') {
+            steps {
+                echo 'Cleaning up resources...'
+            }
+        }
+    }
+}
+
+
+## see u later
