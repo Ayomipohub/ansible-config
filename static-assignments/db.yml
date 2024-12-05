@@ -1,30 +1,27 @@
 ---
-- name: Install and Configure MySQL
+- name: Configure the database server
   hosts: db
-  become: true
-
-  vars:
-    mysql_root_password: "your_root_password"
-    mysql_database: "app_database"
-    mysql_user: "app_user"
-    mysql_user_password: "secure_password"
-
+  become: yes
   tasks:
-    # Task 1: Install MySQL server
     - name: Install MySQL server
-      apt:
+      yum:
         name: mysql-server
         state: present
-        update_cache: yes
 
-    # Task 2: Start and enable MySQL service
-    - name: Ensure MySQL service is running
+    - name: Start MySQL service
       service:
-        name: mysql
+        name: mysqld
         state: started
         enabled: true
 
- # - hosts: db
-  #  roles:
-   #   - mysql
-    # become: true
+    - name: Create a database
+      mysql_db:
+        name: example_db
+        state: present
+
+    - name: Create a user with privileges
+      mysql_user:
+        name: example_user
+        password: example_password
+        priv: '*.*:ALL'
+        state: present
