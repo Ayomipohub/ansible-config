@@ -8,11 +8,8 @@
 
 - name: Start and enable MySQL service
   ansible.builtin.service:
-    name: mysqld
+    name: mysql
     state: started
     enabled: true
 
-- name: Secure MySQL installation (optional)
-  ansible.builtin.command:
-    cmd: mysql_secure_installation
-  ignore_errors: yes
+
