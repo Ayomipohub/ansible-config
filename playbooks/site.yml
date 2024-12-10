@@ -3,15 +3,15 @@
   hosts: db
   become: true
   tasks:
-    - name: Include database playbook
-      ansible.builtin.import_tasks: static-assignments/db.yml
+    - name: Include database tasks
+      ansible.builtin.import_tasks: "../static-assignments/db.yml"
 
 - name: NGINX Playbook
   hosts: nginx
   become: true
   tasks:
-    - name: Include nginx playbook
-      ansible.builtin.import_tasks: ../static-assignments/nginx.yml
+    - name: Include nginx tasks
+      ansible.builtin.import_tasks: "../static-assignments/nginx.yml"
 
 
 #- hosts: all
@@ -19,7 +19,8 @@
   # include: ../dynamic-assignments/env-vars.yml
   #tags:
    # - always
-#- hosts: lb
+#- hosts: lb---
+
 #- name: Loadbalancers assignment
  # import_playbook: ../static-assignments/loadbalancers.yml
   #when: load_balancer_is_required

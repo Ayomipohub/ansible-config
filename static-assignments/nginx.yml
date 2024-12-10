@@ -1,19 +1,19 @@
+# nginx.yml
 ---
-- name: Install and Configure Nginx
-  hosts: nginx
-  become: true
+# Task 1: Install Nginx
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+    update_cache: yes
+  tags:
+    - nginx
 
-  tasks:
-    # Task 1: Install Nginx
-    - name: Install Nginx
-      apt:
-        name: nginx
-        state: present
-        update_cache: yes
-
-    # Task 2: Start and enable Nginx
-    - name: Ensure Nginx is started and enabled
-      service:
-        name: nginx
-        state: started
-        enabled: true
+# Task 2: Start and enable Nginx
+- name: Ensure Nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  tags:
+    - nginx
