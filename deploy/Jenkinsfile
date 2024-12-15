@@ -1,37 +1,64 @@
-   pipeline {
+pipeline {
     agent any
 
-  stages {
-    stage('Build') {
-      steps {
-        script {
-          sh 'echo "Building Stage"'
-        }
-      }
+    environment {
+        ANSIBLE_CONFIG = "${WORKSPACE}/deploy/ansible.cfg"
     }
 
-    stage('Test') {
-      steps {
-        script {
-          sh 'echo "Testing Stage"'
-        }
-      }
+    parameters {
+        string(
+            name: 'inventory', 
+            defaultValue: 'dev',  
+            description: 'This is the inventory file for the environment to deploy configuration'
+        )
     }
-     stage('Package') {
+
+    stages {
+        stage("Initial Cleanup") {
             steps {
-                echo 'Packaging the application...'
+                deleteDir() // Deletes everything in the current workspace
             }
         }
 
-        stage('Deploy') {
+        stage('Checkout SCM') {
             steps {
-                echo 'Deploying the application...'
+                git branch: 'feature/jenkinspipeline-stages', url: 'https://github.com/Ayomipohub/ansible-config.git'
             }
         }
 
-        stage('Clean Up') {
+        stage('Prepare Ansible For Execution') {
             steps {
-                echo 'Cleaning up resources...'
+                sh 'echo ${WORKSPACE}'
+                sh '''
+                    grep -qxF "roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg || echo "roles_path=${WORKSPACE}/roles" >> ${WORKSPACE}/deploy/ansible.cfg
+                '''
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                ansiblePlaybook(
+                    become: true, 
+                    colorized: true, 
+                    credentialsId: 'ayo-key', 
+                    disableHostKeyChecking: true, 
+                    installation: 'ansible', 
+                    inventory: "inventory/${params.inventory}", 
+                    playbook: 'playbooks/site.yml', 
+                    vaultTmpPath: ''
+                )
+            }
+        }
+
+        stage('Clean Workspace After Build') {
+            steps {
+                cleanWs(
+                    cleanWhenAborted: true, 
+                    cleanWhenFailure: true, 
+                    cleanWhenNotBuilt: true, 
+                    cleanWhenUnstable: true, 
+                    deleteDirs: true
+                )
             }
         }
     }

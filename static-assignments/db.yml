@@ -1,5 +1,15 @@
 ---
-  - hosts: db
-    roles:
-      - mysql
-    become: true
+# static-assignments/db.yml
+
+- name: Install MySQL server
+  ansible.builtin.yum:
+    name: mysql-server
+    state: present
+
+- name: Start and enable MySQL service
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+

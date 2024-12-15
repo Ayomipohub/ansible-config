@@ -1,22 +1,29 @@
 ---
-#- name: Loadbalancers assignment
- # hosts: lb
-  #tasks:
-    #- import_playbook: ../static-assignments/loadbalancers.yml
-      #when: load_balancer_is_required
+- name: Database Playbook
+  hosts: db
+  become: true
+  tasks:
+    - name: Include database tasks
+      ansible.builtin.import_tasks: "../static-assignments/db.yml"
 
----
-- hosts: all
-- name: Include dynamic variables
-  #tasks:
-  #import_playbook: ../static-assignments/common.yml
-  include: ../dynamic-assignments/env-vars.yml
-  tags:
-    - always
-- hosts: lb
-- name: Loadbalancers assignment
-  import_playbook: ../static-assignments/loadbalancers.yml
-  when: load_balancer_is_required
+- name: NGINX Playbook
+  hosts: nginx
+  become: true
+  tasks:
+    - name: Include nginx tasks
+      ansible.builtin.import_tasks: "../static-assignments/nginx.yml"
+
+
+#- hosts: all
+#- name: Include dynamic variables
+  # include: ../dynamic-assignments/env-vars.yml
+  #tags:
+   # - always
+#- hosts: lb---
+
+#- name: Loadbalancers assignment
+ # import_playbook: ../static-assignments/loadbalancers.yml
+  #when: load_balancer_is_required
 
 
 #- import_playbook: ../static-assignments/common-del.yml
