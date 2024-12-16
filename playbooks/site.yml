@@ -1,25 +1,27 @@
 ---
-- name: Database Playbook
-  hosts: db
+- name: artifactory assignment
+  hosts: artifactory
   become: true
   tasks:
-    - name: Include database tasks
-      ansible.builtin.import_tasks: "../static-assignments/db.yml"
-
-- name: NGINX Playbook
-  hosts: nginx
-  become: true
-  tasks:
-    - name: Include nginx tasks
-      ansible.builtin.import_tasks: "../static-assignments/nginx.yml"
+    - name: Import Artifactory Playbook
+      ansible.builtin.include_tasks: "../static-assignments/artifactory.yml"
 
 
-#- hosts: all
-#- name: Include dynamic variables
-  # include: ../dynamic-assignments/env-vars.yml
-  #tags:
-   # - always
-#- hosts: lb---
+#- name: Database Playbook
+ # hosts: db
+  #become: true
+  #tasks:
+   # - name: Include database tasks
+    #  ansible.builtin.import_tasks: "../static-assignments/db.yml"
+
+#- name: NGINX Playbook
+ # hosts: nginx
+  #become: true
+  #tasks:
+   # - name: Include nginx tasks
+    #  ansible.builtin.import_tasks: "../static-assignments/nginx.yml"
+
+
 
 #- name: Loadbalancers assignment
  # import_playbook: ../static-assignments/loadbalancers.yml
