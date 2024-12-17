@@ -1,6 +1,4 @@
 ---
-- name: Deploy Artifactory
-  hosts: artifactory
-  become: true
+- name: Configure Artifactory
   roles:
     - artifactory

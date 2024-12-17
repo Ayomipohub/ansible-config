@@ -1,0 +1,40 @@
+---
+# Task 1: Install dependencies
+- name: Install required dependencies
+  ansible.builtin.yum:
+    name:
+      - wget
+      - java-11-openjdk
+    state: present
+
+# Task 2: Download Artifactory OSS
+- name: Download JFrog Artifactory OSS tarball
+  ansible.builtin.get_url:
+    url: "https://releases.jfrog.io/artifactory/artifactory-oss/org/artifactory/oss/jfrog-artifactory-oss/7.66.2/jfrog-artifactory-oss-7.66.2-linux.tar.gz"
+    dest: "/tmp/jfrog-artifactory-oss.tar.gz"
+    mode: '0644'
+
+# Task 3: Extract Artifactory
+- name: Extract Artifactory OSS
+  ansible.builtin.unarchive:
+    src: "/tmp/jfrog-artifactory-oss.tar.gz"
+    dest: "/opt"
+    remote_src: yes
+
+# Task 4: Configure Artifactory as a systemd service
+- name: Create systemd service for Artifactory
+  ansible.builtin.template:
+    src: artifactory.service.j2
+    dest: /etc/systemd/system/artifactory.service
+    mode: '0644'
+
+# Task 5: Reload systemd and start Artifactory
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Enable and start Artifactory service
+  ansible.builtin.systemd:
+    name: artifactory
+    state: started
+    enabled: true
